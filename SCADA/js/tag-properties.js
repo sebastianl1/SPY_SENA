@@ -212,6 +212,169 @@ window.TAG_PROPERTIES_DB = {
     alarms: { min: 15, max: 85, crit_min: 8, crit_max: 92 },
   },
 
+  // ─═ Proceso Unitario 2: Transesterificación y Separación ═────────
+  'EST-001': {
+    label: 'Esterificador 001',
+    unit: '°C',
+    category: 'Equipos de Proceso',
+    icon: 'thermometer',
+    description: 'Reactor de esterificación/transesterificación para la conversión de aceite en biodiesel.',
+    physical: [
+      { key: 'capacidad', label: 'Capacidad del reactor', value: '3000', unit: 'L' },
+      { key: 'temp_operacion', label: 'Temperatura de operación', value: '55 – 70', unit: '°C' },
+      { key: 'presion_diseno', label: 'Presión de diseño', value: '4', unit: 'bar' },
+      { key: 'material', label: 'Material de construcción', value: 'Acero inoxidable 316L', unit: '' },
+    ],
+    chemical: [
+      { key: 'cinetica', label: 'Cinética de reacción', value: 'Arrhenius — 1er orden', unit: '' },
+      { key: 'conversion', label: 'Conversión esperada', value: '> 96', unit: '%' },
+      { key: 'relacion_molar', label: 'Relación molar MeOH:Aceite', value: '6:1', unit: '' },
+    ],
+    process: [
+      { key: 'temp_actual', label: 'Temperatura actual', value: '--', unit: '°C' },
+      { key: 'presion_actual', label: 'Presión del reactor', value: '--', unit: 'bar' },
+      { key: 'tiempo_reaccion', label: 'Tiempo de reacción', value: '--', unit: 'min' },
+      { key: 'velocidad_agitacion', label: 'Velocidad de agitación', value: '300 – 600', unit: 'rpm' },
+    ],
+    alarms: { min: 55, max: 70, crit_min: 50, crit_max: 75 },
+  },
+
+  'GLI-001': {
+    label: 'Separador de Glicerol 001',
+    unit: '%',
+    category: 'Equipos de Proceso',
+    icon: 'droplet',
+    description: 'Separador de fases para remoción de glicerol del biodiesel crudo.',
+    physical: [
+      { key: 'capacidad', label: 'Capacidad del separador', value: '2000', unit: 'L' },
+      { key: 'densidad_glicerol', label: 'Densidad del glicerol', value: '1260', unit: 'kg/m³' },
+      { key: 'tiempo_residencia', label: 'Tiempo de residencia', value: '4 – 8', unit: 'h' },
+    ],
+    chemical: [
+      { key: 'pureza_glicerol', label: 'Pureza del glicerol separado', value: '> 80', unit: '%' },
+      { key: 'contenido_agua', label: 'Contenido de agua en glicerol', value: '< 10', unit: '%' },
+    ],
+    process: [
+      { key: 'nivel_actual', label: 'Nivel de glicerol actual', value: '--', unit: '%' },
+      { key: 'caudal_glicerol', label: 'Caudal de glicerol extraído', value: '--', unit: 'L/h' },
+      { key: 'presion_separador', label: 'Presión del separador', value: '--', unit: 'bar' },
+    ],
+    alarms: { min: 10, max: 85, crit_min: 5, crit_max: 90 },
+  },
+
+  'PRO_DES-001': {
+    label: 'Producto Destino 001',
+    unit: '',
+    category: 'Corrientes de Proceso',
+    icon: 'arrow-right',
+    description: 'Estado de la línea de producto terminado hacia tanques de almacenamiento o despacho.',
+    physical: [
+      { key: 'caudal_nominal', label: 'Caudal nominal de salida', value: '500 – 800', unit: 'L/h' },
+      { key: 'temp_producto', label: 'Temperatura del producto', value: '30 – 40', unit: '°C' },
+    ],
+    chemical: [
+      { key: 'pureza_biodiesel', label: 'Pureza del biodiesel', value: '> 96.5', unit: '%' },
+      { key: 'calidad', label: 'Calidad según norma ASTM D6751', value: '--', unit: '' },
+    ],
+    process: [
+      { key: 'estado_linea', label: 'Estado de la línea', value: '--', unit: '' },
+      { key: 'caudal_actual', label: 'Caudal actual', value: '--', unit: 'L/h' },
+      { key: 'destino', label: 'Destino del producto', value: 'Tanque almacenamiento / Despacho', unit: '' },
+    ],
+  },
+
+  'SEP-001': {
+    label: 'Separador 001',
+    unit: 'bar',
+    category: 'Equipos de Proceso',
+    icon: 'wind',
+    description: 'Separador de fases biodiesel/glicerol por diferencia de densidad y gravedad.',
+    physical: [
+      { key: 'presion_operacion', label: 'Presión de operación', value: '2 – 3.5', unit: 'bar' },
+      { key: 'temp_operacion', label: 'Temperatura de operación', value: '55 – 65', unit: '°C' },
+      { key: 'capacidad_separacion', label: 'Capacidad de separación', value: '2000', unit: 'L/h' },
+    ],
+    chemical: [
+      { key: 'eficiencia_sep', label: 'Eficiencia de separación', value: '> 90', unit: '%' },
+      { key: 'relacion_fases', label: 'Relación biodiesel:glicerol', value: '80:20 – 85:15', unit: '' },
+    ],
+    process: [
+      { key: 'presion_actual', label: 'Presión actual', value: '--', unit: 'bar' },
+      { key: 'caudal_entrada', label: 'Caudal de entrada al separador', value: '--', unit: 'L/h' },
+      { key: 'nivel_interfase', label: 'Nivel de interfase', value: '--', unit: '%' },
+    ],
+    alarms: { min: 1.5, max: 3.5, crit_min: 1, crit_max: 4 },
+  },
+
+  'SIS_BOM-001': {
+    label: 'Sistema de Bombas 001',
+    unit: '',
+    category: 'Equipos de Proceso',
+    icon: 'power',
+    description: 'Sistema de bombas del proceso de transesterificación para transferencia de fluidos.',
+    physical: [
+      { key: 'tipo_bomba', label: 'Tipo de bomba', value: 'Centrífuga multietapa', unit: '' },
+      { key: 'potencia_total', label: 'Potencia total instalada', value: '15', unit: 'kW' },
+      { key: 'caudal_nominal', label: 'Caudal nominal del sistema', value: '3000', unit: 'L/h' },
+    ],
+    chemical: [
+      { key: 'fluido', label: 'Fluido bombeado', value: 'Mezcla biodiesel / glicerol', unit: '' },
+      { key: 'temp_fluido', label: 'Temperatura del fluido', value: '55 – 65', unit: '°C' },
+    ],
+    process: [
+      { key: 'estado', label: 'Estado del sistema (1=activo)', value: '--', unit: '' },
+      { key: 'caudal_actual', label: 'Caudal actual del sistema', value: '--', unit: 'L/h' },
+      { key: 'presion_descarga', label: 'Presión de descarga', value: '--', unit: 'bar' },
+    ],
+    alarms: { min: 0, max: 1, crit_min: 0, crit_max: 1 },
+  },
+
+  'SIS_TRAN-001': {
+    label: 'Sistema de Transporte 001',
+    unit: '',
+    category: 'Equipos de Proceso',
+    icon: 'truck',
+    description: 'Sistema de transporte de producto terminado hacia almacenamiento o despacho.',
+    physical: [
+      { key: 'tipo_transporte', label: 'Tipo de transporte', value: 'Bomba + tubería', unit: '' },
+      { key: 'longitud_tuberia', label: 'Longitud de tubería', value: '150', unit: 'm' },
+      { key: 'diametro', label: 'Diámetro de tubería', value: '3', unit: 'pulg' },
+    ],
+    chemical: [
+      { key: 'fluido_transporte', label: 'Fluido transportado', value: 'Biodiesel purificado', unit: '' },
+      { key: 'viscosidad', label: 'Viscosidad del biodiesel (40°C)', value: '3.5 – 5', unit: 'cSt' },
+    ],
+    process: [
+      { key: 'estado', label: 'Estado del sistema', value: '--', unit: '' },
+      { key: 'caudal_transporte', label: 'Caudal de transporte', value: '--', unit: 'L/h' },
+      { key: 'presion_linea', label: 'Presión en línea', value: '--', unit: 'bar' },
+    ],
+    alarms: { min: 0, max: 1, crit_min: 0, crit_max: 1 },
+  },
+
+  'TRAN-001': {
+    label: 'Transporte 001',
+    unit: 'L/h',
+    category: 'Corrientes de Proceso',
+    icon: 'arrow-right',
+    description: 'Corriente de transporte de producto entre etapas del proceso de transesterificación.',
+    physical: [
+      { key: 'caudal_nominal', label: 'Caudal nominal', value: '600 – 900', unit: 'L/h' },
+      { key: 'temp_operacion', label: 'Temperatura de operación', value: '55 – 65', unit: '°C' },
+      { key: 'presion_operacion', label: 'Presión de operación', value: '2 – 4', unit: 'bar' },
+    ],
+    chemical: [
+      { key: 'producto', label: 'Producto transportado', value: 'Biodiesel crudo / purificado', unit: '' },
+      { key: 'calidad', label: 'Calidad del producto en tránsito', value: '--', unit: '' },
+    ],
+    process: [
+      { key: 'caudal_actual', label: 'Caudal actual', value: '--', unit: 'L/h' },
+      { key: 'presion_actual', label: 'Presión actual', value: '--', unit: 'bar' },
+      { key: 'temp_actual', label: 'Temperatura actual', value: '--', unit: '°C' },
+    ],
+    alarms: { min: 400, max: 1000, crit_min: 300, crit_max: 1100 },
+  },
+
   // ─═ Variables legadas ═─────────────────────────────────────────
   TK_ACEITE: {
     label: 'Tanque de Aceite Crudo',

@@ -21,6 +21,14 @@ const ENGINEERING_PROPS = {
   'TK-002':      { property: 'Nivel', law: 'Arquímedes — Balance de masa en tanque de aceite caracterizado', lawKey: 'mass_balance', unitCategory: 'másica' },
   'TK-003':      { property: 'Nivel', law: 'Arquímedes — Balance de masa en tanque intermedio', lawKey: 'mass_balance', unitCategory: 'másica' },
   'TK-004':      { property: 'Nivel', law: 'Arquímedes — Balance de masa en tanque de producto', lawKey: 'mass_balance', unitCategory: 'másica' },
+  // ── Proceso Unitario 2: Transesterificación y Separación ──
+  'EST-001':     { property: 'Temperatura', law: 'Arrhenius — Cinética de transesterificación', lawKey: 'arrhenius', unitCategory: 'termal' },
+  'GLI-001':     { property: 'Nivel', law: 'Stokes — Sedimentación de glicerol en separador de fases', lawKey: 'stokes', unitCategory: 'másica' },
+  'PRO_DES-001': { property: 'Estado', law: 'Balance de masa — Flujo de producto hacia destino', lawKey: 'mass_balance', unitCategory: 'general' },
+  'SEP-001':     { property: 'Presión', law: 'Stokes — Separación de fases por diferencia de densidad', lawKey: 'stokes', unitCategory: 'hidráulica' },
+  'SIS_BOM-001': { property: 'Estado', law: 'Newton — Potencia hidráulica del sistema de bombas', lawKey: 'newton', unitCategory: 'mecánica' },
+  'SIS_TRAN-001':{ property: 'Estado', law: 'Bernoulli — Transporte de fluido en tuberías entre etapas', lawKey: 'bernoulli', unitCategory: 'hidráulica' },
+  'TRAN-001':    { property: 'Caudal', law: 'Hagen-Poiseuille — Flujo de transporte de producto', lawKey: 'poiseuille', unitCategory: 'hidráulica' },
   // ── Variables legadas ──
   TK_ACEITE:       { property: 'Nivel', law: 'Arquímedes — Balance de masa en tanque de aceite crudo', lawKey: 'mass_balance', unitCategory: 'másica' },
   FILTRADO:        { property: 'Presión', law: 'Darcy — Flujo a través de medio poroso en filtro de malla', lawKey: 'darcy', unitCategory: 'hidráulica' },
@@ -516,6 +524,14 @@ function _simulateProcessVars(now) {
     'TK-002':      () => 45 + 12 * Math.sin(t * 0.005 + 2.5) + Math.random() * 1,
     'TK-003':      () => 52 + 8 * Math.sin(t * 0.006 + 1.1) + Math.random() * 1,
     'TK-004':      () => 35 + 15 * Math.sin(t * 0.004 + 3.2) + Math.random() * 1,
+    // ── Proceso Unitario 2: Transesterificación y Separación ──
+    'EST-001':     () => 65 + 6 * Math.sin(t * 0.007 + 0.4) + Math.random() * 0.8,
+    'GLI-001':     () => 42 + 18 * Math.sin(t * 0.005 + 1.6) + Math.random() * 1.5,
+    'PRO_DES-001': () => Math.random() > 0.02 ? 1 : 0,
+    'SEP-001':     () => 2.3 + 0.6 * Math.sin(t * 0.006 + 2.8) + Math.random() * 0.1,
+    'SIS_BOM-001': () => Math.random() > 0.03 ? 1 : 0,
+    'SIS_TRAN-001':() => Math.random() > 0.02 ? 1 : 0,
+    'TRAN-001':    () => 720 + 90 * Math.sin(t * 0.005 + 0.9) + Math.random() * 5,
     // ── Variables legadas ──
     TK_ACEITE:       () => 55 + 10 * Math.sin(t * 0.004 + 1.7) + Math.random() * 1,
     FILTRADO:        () => 0.8 + 0.3 * Math.sin(t * 0.009 + 0.5) + Math.random() * 0.05,

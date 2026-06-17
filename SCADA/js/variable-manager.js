@@ -13,6 +13,14 @@ class VariableManager {
             { id: 'TK-002', tag: 'Tanque 002', desc: 'Nivel del tanque de aceite caracterizado', unit: '%', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
             { id: 'TK-003', tag: 'Tanque 003', desc: 'Nivel del tanque de almacenamiento intermedio', unit: '%', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
             { id: 'TK-004', tag: 'Tanque 004', desc: 'Nivel del tanque de producto caracterizado', unit: '%', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
+            // ── Proceso Unitario 2: Transesterificación y Separación ──
+            { id: 'EST-001', tag: 'Esterificador 001', desc: 'Temperatura del reactor de esterificación/transesterificación', unit: '°C', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var2', dbVar20: '1', toGraph: true },
+            { id: 'GLI-001', tag: 'Separador Glicerol 001', desc: 'Nivel de glicerol en el separador de fases', unit: '%', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
+            { id: 'PRO_DES-001', tag: 'Producto Destino 001', desc: 'Estado de la línea de producto hacia destino final', unit: '', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
+            { id: 'SEP-001', tag: 'Separador 001', desc: 'Presión del separador de fases (biodiesel/glicerol)', unit: 'bar', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var2', dbVar20: '1', toGraph: true },
+            { id: 'SIS_BOM-001', tag: 'Sistema Bombas 001', desc: 'Estado del sistema de bombas de proceso', unit: '', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
+            { id: 'SIS_TRAN-001', tag: 'Sistema Transporte 001', desc: 'Estado del sistema de transporte de producto', unit: '', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
+            { id: 'TRAN-001', tag: 'Transporte 001', desc: 'Caudal de transporte de producto entre etapas', unit: 'L/h', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var2', dbVar20: '1', toGraph: true },
             // ── Variables legadas (compatibilidad con dashboards existentes) ──
             { id: 'TK_ACEITE', tag: 'Tanque Aceite', desc: 'Nivel del tanque de almacenamiento de aceite vegetal crudo', unit: '%', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: false },
             { id: 'FILTRADO', tag: 'Filtro Aceite', desc: 'Presión diferencial del filtro de aceite vegetal', unit: 'bar', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var2', dbVar20: '1', toGraph: false },

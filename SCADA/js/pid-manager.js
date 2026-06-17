@@ -866,48 +866,27 @@ window.loadOpUnitSVG = async function(path, filename) {
     const svgText = await res.text();
     const container = document.getElementById('pidContainer');
     if (!container) return;
-    // Si el P&ID ya tiene un SVG cargado, inserta la operación unitaria dentro;
-    // si no, reemplaza el contenido por el SVG de la operación.
-    const baseSvg = container.querySelector('svg:not(#pidAnnotationLayer)');
-    if (baseSvg) {
-      const wrap = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      wrap.setAttribute('data-op-unit', filename);
-      const tmp = document.createElement('div');
-      tmp.innerHTML = svgText.trim();
-      const newSvg = tmp.querySelector('svg');
-      if (newSvg) {
-        // Mueve los hijos del SVG insertado al grupo
-        Array.from(newSvg.childNodes).forEach(n => wrap.appendChild(n));
-        const vb = (baseSvg.viewBox?.baseVal) || { width: 800, height: 600 };
-        wrap.setAttribute('transform', `translate(${vb.width*0.4},${vb.height*0.4}) scale(0.6)`);
-        baseSvg.appendChild(wrap);
-        window._normalizeSVGColors && window._normalizeSVGColors(baseSvg);
-        window.showNotif?.(`Proceso unitario "${filename}" añadido`, 'success');
-      } else {
-        throw new Error('SVG inválido');
-      }
-    } else {
-      container.innerHTML = svgText;
-      const svgEl = container.querySelector('svg');
-      if (svgEl) {
-        svgEl.style.width  = '100%';
-        svgEl.style.height = '100%';
-        svgEl.style.maxHeight = 'calc(100vh - 200px)';
-        svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-        window._normalizeSVGColors && window._normalizeSVGColors(svgEl);
-        window._addSVGPanZoom && window._addSVGPanZoom(svgEl);
-        window._wireSVGHotspots && window._wireSVGHotspots(svgEl);
-        window._wirePIDLiveValues && window._wirePIDLiveValues(svgEl);
-      }
-      window._pidCurrentFile = filename;
-      const label = document.getElementById('pidLabel');
-      if (label) label.textContent = filename;
-      window._updatePIDTagInfo && window._updatePIDTagInfo();
-      window._renderPIDFileList && window._renderPIDFileList();
-      if (typeof window._renderPropertyDashboard === 'function') setTimeout(window._renderPropertyDashboard, 150);
-      if (typeof window._checkIntegration === 'function') setTimeout(window._checkIntegration, 200);
-      window.showNotif?.(`Proceso unitario "${filename}" cargado`, 'success');
+    // Reemplazar completamente el contenido (no fusionar)
+    container.innerHTML = svgText;
+    const svgEl = container.querySelector('svg');
+    if (svgEl) {
+      svgEl.style.width  = '100%';
+      svgEl.style.height = '100%';
+      svgEl.style.maxHeight = 'calc(100vh - 200px)';
+      svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      window._normalizeSVGColors && window._normalizeSVGColors(svgEl);
+      window._addSVGPanZoom && window._addSVGPanZoom(svgEl);
+      window._wireSVGHotspots && window._wireSVGHotspots(svgEl);
+      window._wirePIDLiveValues && window._wirePIDLiveValues(svgEl);
     }
+    window._pidCurrentFile = filename;
+    const label = document.getElementById('pidLabel');
+    if (label) label.textContent = filename;
+    window._updatePIDTagInfo && window._updatePIDTagInfo();
+    window._renderPIDFileList && window._renderPIDFileList();
+    if (typeof window._renderPropertyDashboard === 'function') setTimeout(window._renderPropertyDashboard, 150);
+    if (typeof window._checkIntegration === 'function') setTimeout(window._checkIntegration, 200);
+    window.showNotif?.(`Proceso unitario "${filename}" cargado`, 'success');
   } catch (err) {
     window.showNotif?.('Error: ' + (err.message || err), 'danger');
   }

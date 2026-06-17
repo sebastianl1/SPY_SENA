@@ -32,6 +32,13 @@ const VAR_ICONS = {
   'TK-002':      'droplet',
   'TK-003':      'droplet',
   'TK-004':      'droplet',
+  'EST-001':     'thermometer',
+  'GLI-001':     'droplet',
+  'PRO_DES-001': 'arrow-right',
+  'SEP-001':     'wind',
+  'SIS_BOM-001': 'power',
+  'SIS_TRAN-001':'truck',
+  'TRAN-001':    'arrow-right',
   TK_ACEITE:       'droplet',
   FILTRADO:        'filter',
   BOMBEO:          'power',
@@ -86,14 +93,24 @@ function _renderPropertyDashboard() {
   var allTags = Object.keys(db);
   var detected = _getDetectedVars();
 
+  // Filtrar: solo mostrar tags detectados en el P&ID actual
+  var visibleTags = detected.length > 0
+    ? allTags.filter(function(v) { return detected.indexOf(v) !== -1; })
+    : allTags;
+
   if (allTags.length === 0) {
     container.innerHTML = '<div class="dash-empty"><div class="dash-empty-icon">📋</div><h3>Base de datos vacía</h3><p>No hay propiedades registradas en TAG_PROPERTIES_DB.</p></div>';
     return;
   }
 
+  if (visibleTags.length === 0 && detected.length > 0) {
+    container.innerHTML = '<div class="dash-empty"><div class="dash-empty-icon">🔍</div><h3>Sin coincidencias</h3><p>Ningún tag del P&amp;ID tiene propiedades registradas en la base de datos.</p></div>';
+    return;
+  }
+
   // Agrupar por categoría (respetando el orden definido en CAT_COLORS)
   var groups = {};
-  allTags.forEach(function(varId) {
+  visibleTags.forEach(function(varId) {
     var props = db[varId];
     var cat = (props && props.category) || 'Sin categoría';
     if (!groups[cat]) groups[cat] = [];
@@ -103,10 +120,10 @@ function _renderPropertyDashboard() {
   var html = '';
 
   // Barra de resumen
-  var okCount = allTags.filter(function(v) { return _getLiveVal(v) != null; }).length;
+  var okCount = visibleTags.filter(function(v) { return _getLiveVal(v) != null; }).length;
   var pidCount = detected.length;
   html += '<div class="dash-bar">';
-  html += '<div class="dash-bar-item"><span class="dash-bar-num">' + allTags.length + '</span> tags registrados</div>';
+  html += '<div class="dash-bar-item"><span class="dash-bar-num">' + visibleTags.length + '</span> tags ' + (detected.length > 0 ? 'en P&amp;ID' : 'registrados') + '</div>';
   html += '<div class="dash-bar-item"><span class="dash-bar-num" style="color:var(--accent-green)">' + okCount + '</span> con datos</div>';
   html += '<div class="dash-bar-item"><span class="dash-bar-num" style="color:' + (pidCount > 0 ? 'var(--accent-green)' : 'var(--text-dim)') + '">' + pidCount + '</span> en P&amp;ID</div>';
   html += '</div>';
