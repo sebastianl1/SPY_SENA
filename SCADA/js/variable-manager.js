@@ -21,6 +21,13 @@ class VariableManager {
             { id: 'SIS_BOM-001', tag: 'Sistema Bombas 001', desc: 'Estado del sistema de bombas de proceso', unit: '', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
             { id: 'SIS_TRAN-001', tag: 'Sistema Transporte 001', desc: 'Estado del sistema de transporte de producto', unit: '', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
             { id: 'TRAN-001', tag: 'Transporte 001', desc: 'Caudal de transporte de producto entre etapas', unit: 'L/h', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var2', dbVar20: '1', toGraph: true },
+            // ── Proceso Unitario 3: Purificación y Secado ──
+            { id: 'PRO_DES-003', tag: 'Producto Destino 003', desc: 'Estado de la línea de producto final hacia destino en purificación', unit: '', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
+            { id: 'PRO_FIN-001', tag: 'Producto Final 001', desc: 'Estado de la línea de producto final purificado', unit: '', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: true },
+            { id: 'SEC-001', tag: 'Secador 001', desc: 'Temperatura del secador de biodiesel purificado', unit: '°C', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var2', dbVar20: '1', toGraph: true },
+            { id: 'SEC_COND-001', tag: 'Condensador Secador 001', desc: 'Presión del condensador del secador', unit: 'bar', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var2', dbVar20: '1', toGraph: true },
+            { id: 'SIS_CIRC-001', tag: 'Sistema Circulación 001', desc: 'Caudal del sistema de circulación de purificación', unit: 'L/h', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var2', dbVar20: '1', toGraph: true },
+            { id: 'VIS-001', tag: 'Viscosímetro 001', desc: 'Viscosidad cinemática del biodiesel purificado', unit: 'cSt', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var2', dbVar20: '1', toGraph: true },
             // ── Variables legadas (compatibilidad con dashboards existentes) ──
             { id: 'TK_ACEITE', tag: 'Tanque Aceite', desc: 'Nivel del tanque de almacenamiento de aceite vegetal crudo', unit: '%', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var9', dbVar20: '2', toGraph: false },
             { id: 'FILTRADO', tag: 'Filtro Aceite', desc: 'Presión diferencial del filtro de aceite vegetal', unit: 'bar', dbIdDisp: '95', dbTable: 'variable2', dbVar: 'var2', dbVar20: '1', toGraph: false },

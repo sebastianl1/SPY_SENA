@@ -122,6 +122,8 @@ function _addSVGPanZoom(svg) {
   svg.style.cursor = 'grab';
   svg.style.transition = 'transform 0.08s ease';
   svg.style.transformOrigin = 'center center';
+  svg.style.userSelect = 'none';
+  svg.style.webkitUserSelect = 'none';
 
   function apply() {
     svg.style.transform =
@@ -137,16 +139,23 @@ function _addSVGPanZoom(svg) {
 
   svg.addEventListener('mousedown', e => {
     if (window._pidDrawMode) return;
+    e.preventDefault();
     isDragging = true; lastX = e.clientX; lastY = e.clientY;
     svg.style.cursor = 'grabbing';
   });
-  window.addEventListener('mouseup', () => { isDragging = false; svg.style.cursor = 'grab'; });
-  window.addEventListener('mousemove', e => {
+  // Limpiar listeners previos de ventana para evitar duplicados
+  if (window._pidMouseUp) window.removeEventListener('mouseup', window._pidMouseUp);
+  if (window._pidMouseMove) window.removeEventListener('mousemove', window._pidMouseMove);
+
+  window._pidMouseUp = () => { isDragging = false; svg.style.cursor = 'grab'; };
+  window._pidMouseMove = e => {
     if (!isDragging) return;
     state.panX += e.clientX - lastX; state.panY += e.clientY - lastY;
     lastX = e.clientX; lastY = e.clientY;
     apply();
-  });
+  };
+  window.addEventListener('mouseup', window._pidMouseUp);
+  window.addEventListener('mousemove', window._pidMouseMove);
 
   // Exponer estado para que la toolbar pueda manipularlo
   window._pidView = {
@@ -928,6 +937,13 @@ window.openOpUnitModal = async function() {
   if (existing) { existing.remove(); return; }
 
   const { path, files } = await window.listOpUnitSVGs();
+  // Orden personalizado: Caracterización MP → Esterificación → Producto Final
+  const ORDER = ['CARACTERIZACION_MATERIA_PRIMA', 'ESTERIFICACION_TRANSESTERIFICACION', 'CARACTERIZACION_PRODUCTO_FINAL'];
+  files.sort((a, b) => {
+    const ai = ORDER.findIndex(o => a.name.toUpperCase().startsWith(o));
+    const bi = ORDER.findIndex(o => b.name.toUpperCase().startsWith(o));
+    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+  });
   const btn = document.getElementById('pidOpUnitBtn');
   if (!btn) return;
 

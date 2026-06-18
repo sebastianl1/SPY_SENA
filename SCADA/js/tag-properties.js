@@ -375,6 +375,141 @@ window.TAG_PROPERTIES_DB = {
     alarms: { min: 400, max: 1000, crit_min: 300, crit_max: 1100 },
   },
 
+  // ─═ Proceso Unitario 3: Purificación y Secado ═─────────────────
+  'PRO_DES-003': {
+    label: 'Producto Destino 003',
+    unit: '',
+    category: 'Corrientes de Proceso',
+    icon: 'arrow-right',
+    description: 'Estado de la línea de producto final hacia destino en la etapa de purificación.',
+    physical: [
+      { key: 'caudal_nominal', label: 'Caudal nominal de salida', value: '400 – 700', unit: 'L/h' },
+      { key: 'temp_producto', label: 'Temperatura del producto', value: '30 – 40', unit: '°C' },
+    ],
+    chemical: [
+      { key: 'pureza', label: 'Pureza del biodiesel en purificación', value: '> 97', unit: '%' },
+      { key: 'calidad_norma', label: 'Norma de calidad', value: 'ASTM D6751 / EN 14214', unit: '' },
+    ],
+    process: [
+      { key: 'estado_linea', label: 'Estado de la línea', value: '--', unit: '' },
+      { key: 'caudal_actual', label: 'Caudal actual', value: '--', unit: 'L/h' },
+    ],
+  },
+
+  'PRO_FIN-001': {
+    label: 'Producto Final 001',
+    unit: '',
+    category: 'Corrientes de Proceso',
+    icon: 'check-circle',
+    description: 'Estado de la línea de producto final purificado listo para almacenamiento o despacho.',
+    physical: [
+      { key: 'caudal_nominal', label: 'Caudal nominal de salida', value: '400 – 700', unit: 'L/h' },
+      { key: 'temp_producto', label: 'Temperatura del producto final', value: '30 – 40', unit: '°C' },
+    ],
+    chemical: [
+      { key: 'pureza', label: 'Pureza del biodiesel final', value: '> 98', unit: '%' },
+      { key: 'calidad_norma', label: 'Norma de calidad', value: 'ASTM D6751 / EN 14214', unit: '' },
+    ],
+    process: [
+      { key: 'estado_linea', label: 'Estado de la línea', value: '--', unit: '' },
+      { key: 'caudal_actual', label: 'Caudal actual', value: '--', unit: 'L/h' },
+    ],
+  },
+
+  'SEC-001': {
+    label: 'Secador 001',
+    unit: '°C',
+    category: 'Equipos de Proceso',
+    icon: 'thermometer',
+    description: 'Secador de biodiesel para remoción de humedad y trazas de metanol.',
+    physical: [
+      { key: 'temp_operacion', label: 'Temperatura de operación', value: '105 – 120', unit: '°C' },
+      { key: 'presion_operacion', label: 'Presión de operación', value: '1 – 2', unit: 'bar' },
+      { key: 'capacidad', label: 'Capacidad nominal', value: '2000', unit: 'L/h' },
+      { key: 'material', label: 'Material de construcción', value: 'Acero inoxidable 316L', unit: '' },
+    ],
+    chemical: [
+      { key: 'humedad_salida', label: 'Humedad residual del biodiesel', value: '< 0.02', unit: '%' },
+      { key: 'metanol_residual', label: 'Metanol residual', value: '< 0.02', unit: '%' },
+    ],
+    process: [
+      { key: 'temp_actual', label: 'Temperatura actual', value: '--', unit: '°C' },
+      { key: 'presion_actual', label: 'Presión del secador', value: '--', unit: 'bar' },
+      { key: 'caudal_entrada', label: 'Caudal de entrada', value: '--', unit: 'L/h' },
+    ],
+    alarms: { min: 100, max: 120, crit_min: 95, crit_max: 125 },
+  },
+
+  'SEC_COND-001': {
+    label: 'Condensador Secador 001',
+    unit: 'bar',
+    category: 'Equipos de Proceso',
+    icon: 'wind',
+    description: 'Condensador de vapores del secador para recuperación de metanol.',
+    physical: [
+      { key: 'presion_operacion', label: 'Presión de operación', value: '0.5 – 1.5', unit: 'bar' },
+      { key: 'temp_condensacion', label: 'Temperatura de condensación', value: '50 – 65', unit: '°C' },
+      { key: 'area_intercambio', label: 'Área de intercambio', value: '8', unit: 'm²' },
+    ],
+    chemical: [
+      { key: 'eficiencia_recup', label: 'Eficiencia de recuperación', value: '> 95', unit: '%' },
+      { key: 'condensado', label: 'Condensado recuperado', value: 'Metanol + agua', unit: '' },
+    ],
+    process: [
+      { key: 'presion_actual', label: 'Presión actual del condensador', value: '--', unit: 'bar' },
+      { key: 'temp_salida', label: 'Temperatura de salida del condensado', value: '--', unit: '°C' },
+      { key: 'caudal_condensado', label: 'Caudal de condensado', value: '--', unit: 'L/h' },
+    ],
+    alarms: { min: 0.3, max: 1.5, crit_min: 0.2, crit_max: 2 },
+  },
+
+  'SIS_CIRC-001': {
+    label: 'Sistema de Circulación 001',
+    unit: 'L/h',
+    category: 'Equipos de Proceso',
+    icon: 'refresh-cw',
+    description: 'Sistema de recirculación para el proceso de purificación del biodiesel.',
+    physical: [
+      { key: 'caudal_nominal', label: 'Caudal nominal de circulación', value: '500 – 800', unit: 'L/h' },
+      { key: 'presion_operacion', label: 'Presión de operación', value: '2 – 3', unit: 'bar' },
+      { key: 'diametro_tuberia', label: 'Diámetro de tubería', value: '2', unit: 'pulg' },
+    ],
+    chemical: [
+      { key: 'fluido', label: 'Fluido circulante', value: 'Biodiesel en purificación', unit: '' },
+      { key: 'temp_operacion', label: 'Temperatura de operación', value: '60 – 80', unit: '°C' },
+    ],
+    process: [
+      { key: 'caudal_actual', label: 'Caudal de circulación actual', value: '--', unit: 'L/h' },
+      { key: 'presion_actual', label: 'Presión del sistema', value: '--', unit: 'bar' },
+      { key: 'estado_bomba', label: 'Estado de la bomba de circulación', value: '--', unit: '' },
+    ],
+    alarms: { min: 300, max: 900, crit_min: 200, crit_max: 1000 },
+  },
+
+  'VIS-001': {
+    label: 'Viscosímetro 001',
+    unit: 'cSt',
+    category: 'Instrumentación y Control',
+    icon: 'activity',
+    description: 'Medidor de viscosidad cinemática del biodiesel para control de calidad en línea.',
+    physical: [
+      { key: 'tipo', label: 'Tipo de viscosímetro', value: 'Capilar / Vibracional', unit: '' },
+      { key: 'rango_medicion', label: 'Rango de medición', value: '1 – 10', unit: 'cSt' },
+      { key: 'precision', label: 'Precisión', value: '±0.1', unit: 'cSt' },
+      { key: 'temp_medicion', label: 'Temperatura de medición', value: '40', unit: '°C' },
+    ],
+    chemical: [
+      { key: 'norma', label: 'Norma aplicable', value: 'ASTM D445', unit: '' },
+      { key: 'limite_calidad', label: 'Límite de calidad biodiesel', value: '1.9 – 6.0', unit: 'cSt' },
+    ],
+    process: [
+      { key: 'viscosidad_actual', label: 'Viscosidad actual', value: '--', unit: 'cSt' },
+      { key: 'temp_actual', label: 'Temperatura actual del análisis', value: '--', unit: '°C' },
+      { key: 'calidad', label: 'Calidad (cumple norma)', value: '--', unit: '' },
+    ],
+    alarms: { min: 1.9, max: 6.0, crit_min: 1.5, crit_max: 6.5 },
+  },
+
   // ─═ Variables legadas ═─────────────────────────────────────────
   TK_ACEITE: {
     label: 'Tanque de Aceite Crudo',

@@ -29,6 +29,13 @@ const ENGINEERING_PROPS = {
   'SIS_BOM-001': { property: 'Estado', law: 'Newton — Potencia hidráulica del sistema de bombas', lawKey: 'newton', unitCategory: 'mecánica' },
   'SIS_TRAN-001':{ property: 'Estado', law: 'Bernoulli — Transporte de fluido en tuberías entre etapas', lawKey: 'bernoulli', unitCategory: 'hidráulica' },
   'TRAN-001':    { property: 'Caudal', law: 'Hagen-Poiseuille — Flujo de transporte de producto', lawKey: 'poiseuille', unitCategory: 'hidráulica' },
+  // ── Proceso Unitario 3: Purificación y Secado ──
+  'PRO_DES-003': { property: 'Estado', law: 'Balance de masa — Producto destino en purificación', lawKey: 'mass_balance', unitCategory: 'general' },
+  'PRO_FIN-001': { property: 'Estado', law: 'Balance de masa — Producto final purificado', lawKey: 'mass_balance', unitCategory: 'general' },
+  'SEC-001':     { property: 'Temperatura', law: 'Fourier — Transferencia de calor en secador', lawKey: 'fourier', unitCategory: 'termal' },
+  'SEC_COND-001':{ property: 'Presión', law: 'Clausius-Clapeyron — Condensación de vapores', lawKey: 'clausius', unitCategory: 'termal' },
+  'SIS_CIRC-001':{ property: 'Caudal', law: 'Bernoulli — Recirculación en sistema de purificación', lawKey: 'bernoulli', unitCategory: 'hidráulica' },
+  'VIS-001':     { property: 'Viscosidad', law: 'Newton — Viscosidad cinemática del biodiesel (ASTM D445)', lawKey: 'newton', unitCategory: 'reológica' },
   // ── Variables legadas ──
   TK_ACEITE:       { property: 'Nivel', law: 'Arquímedes — Balance de masa en tanque de aceite crudo', lawKey: 'mass_balance', unitCategory: 'másica' },
   FILTRADO:        { property: 'Presión', law: 'Darcy — Flujo a través de medio poroso en filtro de malla', lawKey: 'darcy', unitCategory: 'hidráulica' },
@@ -532,6 +539,13 @@ function _simulateProcessVars(now) {
     'SIS_BOM-001': () => Math.random() > 0.03 ? 1 : 0,
     'SIS_TRAN-001':() => Math.random() > 0.02 ? 1 : 0,
     'TRAN-001':    () => 720 + 90 * Math.sin(t * 0.005 + 0.9) + Math.random() * 5,
+    // ── Proceso Unitario 3: Purificación y Secado ──
+    'PRO_DES-003': () => Math.random() > 0.02 ? 1 : 0,
+    'PRO_FIN-001': () => Math.random() > 0.02 ? 1 : 0,
+    'SEC-001':     () => 110 + 5 * Math.sin(t * 0.006 + 1.3) + Math.random() * 0.5,
+    'SEC_COND-001':() => 0.8 + 0.3 * Math.sin(t * 0.008 + 2.4) + Math.random() * 0.06,
+    'SIS_CIRC-001':() => 550 + 60 * Math.sin(t * 0.005 + 0.7) + Math.random() * 4,
+    'VIS-001':     () => 4.2 + 0.6 * Math.sin(t * 0.007 + 1.9) + Math.random() * 0.1,
     // ── Variables legadas ──
     TK_ACEITE:       () => 55 + 10 * Math.sin(t * 0.004 + 1.7) + Math.random() * 1,
     FILTRADO:        () => 0.8 + 0.3 * Math.sin(t * 0.009 + 0.5) + Math.random() * 0.05,
