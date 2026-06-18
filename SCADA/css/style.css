@@ -599,14 +599,28 @@
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--r-lg);
-  padding: 16px;
-  transition: box-shadow 0.25s, border-color 0.25s, transform 0.2s;
+  padding: 18px 18px 14px;
+  transition: box-shadow var(--t-base), border-color var(--t-base), transform var(--t-fast);
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.dash-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0;
+  transition: opacity var(--t-base);
+}
+.dash-card:hover::before {
+  opacity: 0.6;
 }
 .dash-card:hover {
-  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  box-shadow: var(--shadow-md);
   border-color: rgba(100,116,139,0.35);
   transform: translateY(-2px);
 }
@@ -618,20 +632,25 @@
 }
 .dash-card-id {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.35);
   text-transform: uppercase;
   flex: 1;
 }
 .dash-pid-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #22c55e;
-  box-shadow: 0 0 6px rgba(34,197,94,0.5);
+  box-shadow: 0 0 8px rgba(34,197,94,0.6);
   flex-shrink: 0;
+  animation: dash-dot-pulse 2s ease-in-out infinite;
+}
+@keyframes dash-dot-pulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(34,197,94,0.3); }
+  50% { box-shadow: 0 0 12px rgba(34,197,94,0.7); }
 }
 .dash-card-val {
   display: flex;
@@ -641,7 +660,7 @@
 }
 .dash-card-num {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   color: var(--accent-cyan);
   line-height: 1;
@@ -657,6 +676,7 @@
   font-weight: 600;
   color: var(--text-heading);
   margin-bottom: 4px;
+  letter-spacing: 0.01em;
 }
 .dash-card-desc {
   font-size: 11px;
@@ -666,7 +686,7 @@
 }
 .dash-divider {
   height: 1px;
-  background: var(--border-subtle);
+  background: linear-gradient(90deg, var(--border-subtle), transparent);
   margin: 8px 0;
 }
 
@@ -750,8 +770,6 @@
   .dash-grid { grid-template-columns: 1fr; }
   .dash-bar-item { flex: 1; justify-content: center; }
 }
-
-/* ─── Chip activo en lista de tags P&ID/HMI ────────────────────── */
 
 /* ─── Chip activo en lista de tags P&ID/HMI ────────────────────── */
 .tag-chip-active {
