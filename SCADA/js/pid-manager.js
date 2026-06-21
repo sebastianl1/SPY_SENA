@@ -744,7 +744,22 @@ function _updatePIDLiveValues() {
     'TK-004': '5.05 kg',
     'E-003': '180 L (0.5 M)',
     'E.W-003': '10 L',
-    'ALCO-001': '180 L'
+    'ALCO-001': '180 L',
+    // Esterificación Transesterificación
+    'EST-001': '834 L',
+    'GLI-001': '218 L',
+    'PRO_DES-001': '14 L',
+    'SEP-001': '770 L',
+    'SIS_BOM-001': '15 kW',
+    'SIS_TRAN-001': '776 L',
+    'TRAN-001': '1014 L',
+    // Caracterización Producto Final
+    'PRO_DES-003': 'PRO_DES-003',
+    'PRO_FIN-001': 'PRO_FIN-001',
+    'SEC-001': 'SEC-001',
+    'SEC_COND-001': 'SEC_COND-001',
+    'SIS_CIRC-001': 'SIS_CIRC-001',
+    'VIS-001': 'VIS-001'
   };
   container.querySelectorAll('[data-live-tag]').forEach(text => {
     const tag = text.getAttribute('data-live-tag');
