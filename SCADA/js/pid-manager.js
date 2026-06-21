@@ -754,12 +754,12 @@ function _updatePIDLiveValues() {
     'SIS_TRAN-001': '776 L',
     'TRAN-001': '1014 L',
     // Caracterización Producto Final
-    'PRO_DES-003': 'PRO_DES-003',
-    'PRO_FIN-001': 'PRO_FIN-001',
-    'SEC-001': 'SEC-001',
-    'SEC_COND-001': 'SEC_COND-001',
-    'SIS_CIRC-001': 'SIS_CIRC-001',
-    'VIS-001': 'VIS-001'
+    'VIS-001': '770 L',
+    'SEC-001': '765 L',
+    'SEC_COND-001': '760 L',
+    'PRO_FIN-001': '760 L',
+    'PRO_DES-003': '10 L',
+    'SIS_CIRC-001': '500 – 800 L/h'
   };
   container.querySelectorAll('[data-live-tag]').forEach(text => {
     const tag = text.getAttribute('data-live-tag');
@@ -1057,14 +1057,33 @@ window.openOpUnitModal = async function() {
 };
 
 // ─── TAG INFO ─────────────────────────────────────────────────────
+const PID_TAG_ORDER = [
+  // Proceso Unitario 1: Caracterización de Materia Prima
+  'TK-001', 'FIL-001', 'P-001', 'CLP-001', 'TK-002', 'SALACE-001',
+  // Proceso Unitario 2: Esterificación y Transesterificación
+  'EST-001', 'TRAN-001', 'SEP-001', 'SIS_TRAN-001', 'GLI-001', 'PRO_DES-001', 'SIS_BOM-001',
+  // Proceso Unitario 3: Caracterización del Producto Terminado
+  'VIS-001', 'SEC-001', 'SEC_COND-001', 'PRO_FIN-001', 'PRO_DES-003', 'SIS_CIRC-001'
+];
+
 function _getPIDDetectedVars() {
   const container = document.getElementById('pidContainer');
   const svg = container ? container.querySelector('svg:not(#pidAnnotationLayer)') : null;
-  return svg ? [...new Set(
+  const detected = svg ? [...new Set(
     Array.from(svg.querySelectorAll('[data-scada-var]'))
       .map(el => el.getAttribute('data-scada-var'))
       .filter(Boolean)
   )] : [];
+  
+  // Ordenar según el orden definido en PID_TAG_ORDER
+  return detected.sort((a, b) => {
+    const idxA = PID_TAG_ORDER.indexOf(a);
+    const idxB = PID_TAG_ORDER.indexOf(b);
+    if (idxA === -1 && idxB === -1) return 0;
+    if (idxA === -1) return 1;
+    if (idxB === -1) return -1;
+    return idxA - idxB;
+  });
 }
 window._getPIDDetectedVars = _getPIDDetectedVars;
 
