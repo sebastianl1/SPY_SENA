@@ -676,6 +676,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // ─── VALORES EN VIVO SOBRE SVG ────────────────────────────────────
 let _pidLiveInterval = null;
+function _getRelevantDisplayValue(tag) {
+  const displayValues = {
+    'TK-001': '891 L',
+    'FIL-001': '846 L',
+    'P-001': '3 HP',
+    'CLP-001': '24 VDC',
+    'TK-002': '834 L',
+    'SALACE-001': '834 L',
+    'TK-003': '180 L',
+    'TK-004': '5.05 kg',
+    'E-003': '180 L (0.5 M)',
+    'E.W-003': '10 L',
+    'ALCO-001': '180 L'
+  };
+  return displayValues[tag] || tag;
+}
+
 function _wirePIDLiveValues(svgEl) {
   if (!svgEl) return;
   if (_pidLiveInterval) { clearInterval(_pidLiveInterval); _pidLiveInterval = null; }
@@ -684,7 +701,6 @@ function _wirePIDLiveValues(svgEl) {
   svgEl.querySelectorAll('[data-tag]').forEach(el => {
     const tag = el.getAttribute('data-tag');
     if (!tag) return;
-    // Resolver a ID canónico para mejor matching
     const varId = el.getAttribute('data-scada-var') || tag;
     el.setAttribute('data-scada-var', varId);
 
@@ -702,7 +718,7 @@ function _wirePIDLiveValues(svgEl) {
     text.setAttribute('data-live-tag', tag);
     text.setAttribute('data-live-var', varId);
     text.setAttribute('filter', 'drop-shadow(0 0 2px rgba(0,0,0,0.6))');
-    text.textContent = tag;
+    text.textContent = _getRelevantDisplayValue(tag);
     text.style.display = 'none';
 
     if (el.parentNode) el.parentNode.insertBefore(text, el.nextSibling);
@@ -717,19 +733,33 @@ function _updatePIDLiveValues() {
   const container = document.getElementById('pidContainer');
   if (!container) return;
   const pv = window.processVars || {};
+  const displayValues = {
+    'TK-001': '891 L',
+    'FIL-001': '846 L',
+    'P-001': '3 HP',
+    'CLP-001': '24 VDC',
+    'TK-002': '834 L',
+    'SALACE-001': '834 L',
+    'TK-003': '180 L',
+    'TK-004': '5.05 kg',
+    'E-003': '180 L (0.5 M)',
+    'E.W-003': '10 L',
+    'ALCO-001': '180 L'
+  };
   container.querySelectorAll('[data-live-tag]').forEach(text => {
     const tag = text.getAttribute('data-live-tag');
-    const varId = text.getAttribute('data-live-var');
-    if (!tag && !varId) return;
-    let info = varId && pv[varId] ? pv[varId] : pv[tag];
-    if (info && info.val != null && Number(info.val) !== 0) {
-      const n = Number(info.val);
-      text.textContent = tag + ': ' + (isNaN(n) ? info.val : n.toFixed(1)) + (info.unit ? ' ' + info.unit : '');
+    if (!tag) return;
+    const displayValue = displayValues[tag];
+    if (displayValue) {
+      text.textContent = tag + ': ' + displayValue;
       text.style.display = '';
     } else {
       text.style.display = 'none';
     }
   });
+
+  // Actualizar info de tags en la barra de herramientas
+  _updatePIDTagInfo();
 
   // Colorear elementos SVG según estado de alarma
   container.querySelectorAll('[data-scada-var]').forEach(el => {
@@ -741,13 +771,6 @@ function _updatePIDLiveValues() {
     const max = info.max != null ? info.max : 100;
     const min = info.min != null ? info.min : 0;
     const inAlarm = val > max || val < min;
-
-    if (!el.hasAttribute('data-orig-fill') && el.getAttribute('fill')) {
-      el.setAttribute('data-orig-fill', el.getAttribute('fill'));
-    }
-    if (!el.hasAttribute('data-orig-stroke') && el.getAttribute('stroke')) {
-      el.setAttribute('data-orig-stroke', el.getAttribute('stroke'));
-    }
 
     if (inAlarm) {
       el.setAttribute('stroke', 'rgba(239,68,68,0.6)');
